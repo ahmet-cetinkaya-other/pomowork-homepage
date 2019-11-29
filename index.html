@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <link rel="stylesheet" href="css/solid.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>amt homepage</title>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3">
+                <div id="pomodoro-section" class="mx-auto my-5 text-center">
+                    <div class="water">
+                        <span class="wave"></span>
+                        <span class="deep-water"></span>
+                    </div>
+                    <h1>25</h1>
+                    <p>00</p>
+                    <div class="justify-content-center">
+                        <button id="startpomodoro" class="btn btn-success">Başla</button>
+                        <button id="breakpomodoro" class="btn btn-warning">Mola</button>
+                        <button id="stoppomodoro" class="btn btn-danger">Durdur</button>
+                    </div>
+                    <p style="font-size: 14px;">Toplam Pomodoro: <span id="allpomodoro">0</span> (<span
+                            id="longbreak">0</span>/4)
+                    </p>
+                </div>
+                <div id="todos-section" class="mx-auto">
+                    <div class="row my-2">
+                        <div class="col-3 my-2">
+                            <h4>Görevler</h4>
+                        </div>
+                        <div class="col-9">
+                            <div id="alertInTodo" style="cursor: progress;"></div>
+                        </div>
+                    </div>
+                    <form id="todo-form" name="form" class="mx-auto">
+                        <div class="form-row align-items-center">
+                            <div class="col-9">
+                                <input class="form-control" autocomplete="off" type="text" name="todo" id="todo"
+                                    placeholder="Bir Görev Girin">
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-info">Görev Ekleyin</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="todosList">
+                        <ul id="todos" class="list-group">
+                        </ul>
+                    </div>
+                    <input class="form-control" autocomplete="off" type="text" name="filter" id="filter"
+                        placeholder="Bir Görev Arayın">
+                    <a id="clear-todos" class="btn btn-dark my-2" href="#">Tüm Görevleri Tamamla</a>
+                </div>
+            </div>
+            <div id="main-section" class="col-lg-6">
+                <form id="google-search-form" class="col-8 center" name="search">
+                    <img style="float: left;" src="images/googlelogo_color_92x30dp.png">
+                    <input id="google-search-input" autocomplete="off" class="form-control col-12" type="text"
+                        placeholder="Arama yap">
+                </form>
+                <div id="bookmarksList" class="center mt-3">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#bookmarkmodal"><i
+                            class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div id="alertInBookmark" style="cursor: progress;"></div>
+            </div>
+            <div class="col-lg-3 my-5">
+                <div class="row">
+                    <div class="col-6">
+                        <button id="noteForm" type="submit" class="btn btn-warning">Not Ekleyin</button>
+                    </div>
+                    <div class="col-6">
+                        <div id="alertInNotes" style="cursor: progress;"></div>
+                    </div>
+                </div>
+                <form id="noteList" class="row" style="padding:0.7rem;"></form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <section>
+        <!-- bookmark add form modal -->
+        <form id="bookmark-form" name="add">
+            <div class="modal fade" id="bookmarkmodal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Yer imi ekle
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col">
+                                    <input id="urlnameInput" autocomplete="off" type="text" class="form-control"
+                                        placeholder="Başlık">
+                                </div>
+                                <div class="col">
+                                    <input id="urlInput" autocomplete="off" type="text" class="form-control"
+                                        placeholder="URL">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" data-toggle="modal"
+                                data-target="#bookmarkmodal">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- bookmark add form modal -->
+        <!-- bookmark edit form modal -->
+        <form id="bookmark-edit-form" name="edit">
+            <div class="modal fade" id="bookmarkmodaledit" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Yer imini düzenle
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col">
+                                    <input id="editurlnameInput" autocomplete="off" type="text" class="form-control"
+                                        placeholder="Başlık">
+                                </div>
+                                <div class="col">
+                                    <input id="editurleditInput" autocomplete="off" type="text" class="form-control"
+                                        placeholder="URL">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="deletebookmark" type="button" class="btn btn-danger"
+                                data-dismiss="modal">Sil</button>
+                            <button type="submit" class="btn btn-success" data-toggle="modal"
+                                data-target="#bookmarkmodaledit">Düzenle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- bookmark edit form modal -->
+        <!-- settings form modal -->
+        <a id="settings-button" data-toggle="modal" data-target="#settings-modal"><i class="fas fa-cog"></i></a>
+        <form id="settings-form" name="edit">
+            <div class="modal fade" id="settings-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ayarlar</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>Pomodoro</h5>
+                            <div class="form-row">
+                                <div class="col-4 my-2">
+                                    <p>Çalışma Süresi</p>
+                                </div>
+                                <div class="col-2">
+                                    <input id="pomodoro-start-setting" autocomplete="off" type="number"
+                                        class="form-control">
+                                </div>
+                                <p class="col my-2">dk</p>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 my-2">
+                                    <p>Mola Süresi</p>
+                                </div>
+                                <div class="col-2">
+                                    <input id="pomodoro-break-setting" autocomplete="off" type="number"
+                                        class="form-control">
+                                </div>
+                                <p class="col my-2">dk</p>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 my-2">
+                                    <p>Uzun Mola Süresi</p>
+                                </div>
+                                <div class="col-2">
+                                    <input id="pomodoro-longbreak-setting" autocomplete="off" type="number"
+                                        class="form-control">
+                                </div>
+                                <p class="col my-2">dk</p>
+                            </div>
+                            <h5>Duvar Kağıdı</h5>
+                            <div class="form-row">
+                                <div class="col-4 my-2">
+                                    <p>Günlük Duvar Kağıdı</p>
+                                </div>
+                                <div class="col-2 mt-2">
+                                    <label class=" checkbox-container">
+                                        <input id="daily-wallpaper" type="checkbox">
+                                        <span class="dark-checkbox form-control"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 my-2">
+                                    <p>Günlük Duvar Kağıdı Kategorisi</p>
+                                </div>
+                                <div class="col-4">
+                                    <select id="daily-wallpaper-category" class="form-control">
+                                        <option value="nature">Doğal</option>
+                                        <option value="textures-patterns">Kaplamalar</option>
+                                        <option value="architecture">Mimari</option>
+                                        <option value="Travel">Yolculuk</option>
+                                        <option value="animals">Hayvanlar</option>
+                                        <option value="arts-culture">Sanat</option>
+                                        <option value="business-work">İş</option>
+                                    </select> </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 my-2">
+                                    <p>Özel Duvar Kağıdı</p>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-row">
+                                        <input type='file' id='upload-wallpaper' name="background-image" />
+                                        <input id="custom-wallpaper" autocomplete="off" type="text" class="form-control"
+                                            placeholder="URL">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="default-settings" type="button" class="btn btn-secondary" data-toggle="modal"
+                                data-target="#settings-modal">Varsayılan</button>
+                            <button type="submit" class="btn btn-success" data-toggle="modal"
+                                data-target="#settings-modal">Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- settings edit form modal -->
+    </section>
+    <footer>
+        <p class="text-center text-muted">Made by <a href="mailto:ahmetcetinkaya-@outlook.com"
+                class="text-reset text-decoration-none">Ahmet Çetinkaya</a></p>
+    </footer>
+    <audio id="pomodorosound" src="sounds/pomodoroalert.mp3" preload="auto"></audio>
+    <audio id="warningsound" src="sounds/warning.mp3" preload="auto"></audio>
+    <audio id="dangersound" src="sounds/danger.mp3" preload="auto"></audio>
+
+    <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/todo.js"></script>
+</body>
+
+</html>
